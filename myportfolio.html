@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brijesh Kumar - Backend Developer | REST APIs & Database Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #2196F3;
+            --secondary: #1565C0;
+            --accent: #FF6B35;
+            --dark: #0D1B2A;
+            --light: #F5F7FA;
+            --text: #1A1A1A;
+            --text-light: #555;
+            --border: #E0E0E0;
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: #fff;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo i {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--dark) 100%);
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .hero-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 11px 28px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #E55A2B;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 1.5px solid #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Section Layout */
+        section {
+            padding: 70px 20px;
+            width: 100%;
+        }
+
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--light);
+        }
+
+        .about-text {
+            max-width: 1000px;
+            margin: 0 auto;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.2rem;
+        }
+
+        /* Backend Strengths Section */
+        #strengths {
+            background: #fff;
+
+        }
+
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .strength-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+            transition: all 0.25s;
+        }
+
+        .strength-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            border-left-color: var(--accent);
+        }
+
+        .strength-card h3 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .strength-card i {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .strength-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: #fff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 1.5rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            opacity: 0.9;
+            min-width: 40px;
+        }
+
+        .project-header h3 {
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .project-body {
+            padding: 1.8rem;
+        }
+
+        .project-role {
+            display: inline-block;
+            background: #E3F2FD;
+            color: var(--secondary);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .project-description strong {
+            color: var(--secondary);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .tech-tag {
+            background: #E3F2FD;
+            color: var(--secondary);
+            padding: 0.35rem 0.9rem;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .features-list li {
+            padding: 0.4rem 0 0.4rem 1.5rem;
+            position: relative;
+            color: var(--text-light);
+            font-size: 0.93rem;
+        }
+
+        .features-list li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .project-link {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.25s;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .project-link-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .project-link-primary:hover {
+            background: var(--secondary);
+        }
+
+        .project-link-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+        }
+
+        .project-link-secondary:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Tech Stack Section */
+        #skills {
+            background: var(--light);
+        }
+
+        .skills-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tech-category {
+            margin-bottom: 2.5rem;
+        }
+
+        .category-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .category-label i {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .tech-item {
+            background: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            max-width: 1100px;
+
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Education Section */
+        #education {
+            background: #fff;
+        }
+
+        .education-item {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .education-item h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .education-meta i {
+            color: var(--accent);
+        }
+
+        .education-item p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .education-item p:first-of-type {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        #contact .section-title {
+            color: #fff;
+        }
+
+        #contact .section-title::after {
+            background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.6));
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .contact-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .contact-item a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .contact-cta {
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.25s;
+            font-size: 1.1rem;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 1.5rem 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 60px 20px;
+                min-height: 380px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            section {
+                padding: 50px 15px;
+            }
+
+            .strengths-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .projects-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-logo {
+                font-size: 1rem;
+            }
+
+            .nav-menu {
+                gap: 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-title {
+                font-size: 0.9rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-cta {
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 9px 16px;
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 40px 12px;
+            }
+
+            .project-header {
+                padding: 1rem;
+            }
+
+            .project-body {
+                padding: 1.2rem;
+            }
+
+            .contact-content {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Animation */
+        section {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .with-icons i {
+            margin-right: 6px;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .tech-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Education Section Upgrade */
+        .education-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .education-card {
+            display: flex;
+            gap: 2rem;
+            background: #f9f9f9;
+            padding: 2.2rem;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .education-left {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .edu-badge {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.4rem;
+        }
+
+        .education-right h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .edu-specialization {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.8rem;
+        }
+
+        .edu-specialization span {
+            color: var(--accent);
+        }
+
+        .edu-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .edu-meta i {
+            color: var(--accent);
+            margin-right: 4px;
+        }
+
+        .edu-coursework {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .education-card {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+
+            .education-left {
+                justify-content: center;
+            }
+        }
+
+
+
+        /* Print: each section on a new page */
+        @media print {
+            section {
+                page-break-before: always;
+                /* legacy */
+                break-before: page;
+                /* modern */
+            }
+
+            /* Don't force page break before the first section */
+            section:first-of-type {
+                page-break-before: auto;
+                break-before: auto;
+            }
+
+            nav,
+            footer {
+                display: none;
+                /* optional: hide nav & footer in print */
+            }
+        }
+
+        /* One screen = one section */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            scroll-margin-top: 80px;
+        }
+
+        .hero {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav role="navigation">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-code"></i>
+                Brijesh Kumar
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#about">About Me</a></li>
+                <!-- <li><a href="#strengths">Strengths</a></li> -->
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>Brijesh Kumar Morya</h1>
+
+            <p class="hero-title">
+                Computer Science Undergraduate | Software Engineer
+            </p>
+
+            <p class="hero-subtitle">
+                Software Engineering undergraduate building reliable, backend-driven full-stack applications.
+            </p>
+
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i> View Projects
+                </a>
+                <a href="https://drive.google.com/file/d/13Gwi6JrV3qQZ4y0URgeT6gzHome-kG7Q/view?usp=sharing"
+                    target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i class="fa-solid fa-file"></i> My Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+
+        <div class="about-text">
+            <p>
+                I am Brijesh Kumar Morya, a third-year Bachelor of Technology undergraduate in
+                Computer Science and Technology at the Faculty of Technology, University of Delhi,
+                with a specialization in Software Engineering. I am a Computer Science student with
+                a strong foundation in software design principles and system-level thinking.
+            </p>
+
+            <p>
+                I am trained as a Software Engineer and have experience working across the software
+                development lifecycle, including problem analysis, system design, implementation,
+                and testing. While I have a strong interest in backend development and system architecture,
+                I am not restricted to a single domain and am comfortable working across full-stack
+                applications when required.
+            </p>
+
+            <p>
+                Through academic and project-based work, I have contributed to the development of
+                real-world software systems such as expense management platforms, grievance management
+                solutions, and travel listing web applications. My work has involved designing RESTful APIs,
+                implementing secure authentication and authorization mechanisms, modeling databases,
+                and integrating frontend and backend components in collaborative team environments.
+            </p>
+
+            <p>
+                My academic training has provided me with a solid grounding in core Computer Science
+                subjects including Data Structures and Algorithms, Object-Oriented Programming,
+                Operating Systems, Database Management Systems, and the Software Development Life Cycle.
+                I approach engineering problems methodically and emphasize code quality, maintainability,
+                and correctness.
+            </p>
+
+            <p>
+                I am committed to continuous learning and professional growth as a Software Engineer,
+                with particular interest in scalable system design and backend architecture.
+                I am currently seeking internship or entry-level software engineering opportunities
+                where I can apply my knowledge, gain practical industry experience, and learn from
+                experienced professionals.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- Backend Strengths Section -->
+    <!-- <section id="strengths">
+        <h2 class="section-title">Backend & System Design Strengths</h2>
+        <div class="strengths-grid">
+            <div class="strength-card">
+                <h3><i class="fas fa-network-wired"></i> REST APIs & Routing</h3>
+                <p>Designed and deployed stateless REST APIs with express.js and Flask. Implemented proper HTTP
+                    semantics, middleware layering, and request/response validation.</p>
+            </div>
+            <div class="strength-card">
+                <h3><i class="fas fa-lock"></i> Authentication & Security</h3>
+                <p>Implemented JWT-based auth, session management, password hashing, and secure token refresh flows.
+                    Familiar with OAuth2 patterns and secure header practices.</p>
+            </div>
+            <div class="strength-card">
+                <h3><i class="fas fa-database"></i> Database Design & Indexing</h3>
+                <p>Designed normalized SQL schemas and MongoDB document models. Implemented geo-indexing, aggregation
+                    pipelines, and query optimization for sub-50ms lookups.</p>
+            </div>
+            <div class="strength-card">
+                <h3><i class="fas fa-cogs"></i> Async & Background Processing</h3>
+                <p>Built async Flask APIs with Celery task queues for NLP inference and long-running operations.
+                    Designed async/await patterns in Node.js for I/O-bound workloads.</p>
+            </div>
+            <div class="strength-card">
+                <h3><i class="fas fa-layer-group"></i> Layered Architecture</h3>
+                <p>Organized code with separation of concerns: controllers, services, repositories, and models. Used
+                    dependency injection for testability and loose coupling.</p>
+            </div>
+            <div class="strength-card">
+                <h3><i class="fas fa-box"></i> Deployment & DevOps</h3>
+                <p>Containerized applications with Docker. Deployed to Render, managed environment configuration, and
+                    monitored production health and error logs.</p>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- PerSplit -->
+            <article class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-wallet project-icon"></i>
+                    <h3>PerSplit – Expense Splitting & Management App</h3>
+                </div>
+
+                <div class="project-body">
+                    <span class="project-role">Full-Stack Developer · Group Project</span>
+
+                    <p class="project-description">
+                        <strong>Problem:</strong> Existing expense tracking apps are often complex, lack real-time
+                        collaboration,
+                        and do not support UPI or flexible split methods suitable for Indian users.
+                        <strong>Solution:</strong> Developed a full-stack expense management application that enables
+                        users to
+                        track personal and group expenses, split bills using equal, percentage, or custom methods, and
+                        settle
+                        dues through UPI/QR-based payments. The system maintains real-time balances and computes
+                        optimized net
+                        settlements to minimize transactions.
+                        <strong>Result:</strong> Simplified shared expense tracking with accurate calculations, faster
+                        settlements,
+                        and an improved user experience.
+                    </p>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">Socket.IO</span>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>Personal and group expense tracking with multiple split methods</li>
+                        <li>Friend and group management system</li>
+                        <li>UPI and QR-based payment settlement with verification flow</li>
+                        <li>Optimized net settlement algorithm to reduce transactions</li>
+                        <li>Real-time updates for expenses and settlements</li>
+                    </ul>
+
+                    <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1Ho_KSsTxvBXb6QINIX-JX4AIlkKEADYe/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer" class="project-link project-link-primary">
+                            <i class="fa-solid fa-file"></i>More
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- WanderLust -->
+            <article class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-map-location-dot project-icon"></i>
+                    <h3>WanderLust – Travel & Listings Web App</h3>
+                </div>
+
+                <div class="project-body">
+                    <span class="project-role">Full-Stack Developer</span>
+
+                    <p class="project-description">
+                        <strong>Problem:</strong> Travel platforms need intuitive browsing, detailed listings, and
+                        secure user access
+                        to allow users to explore destinations and property information easily.
+                        <strong>Solution:</strong> Built a full-stack travel listings web application that supports user
+                        login,
+                        browseable destination listings, and individual listing detail views. The platform features
+                        secure session-based
+                        authentication, responsive UI, and efficient backend APIs.
+                        <strong>Result:</strong> Users can log in, view travel listings, and navigate to detailed
+                        property pages with
+                        consistent performance and smooth navigation.
+                    </p>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Passport.js</span>
+                        <span class="tech-tag">EJS</span>
+                        <span class="tech-tag">Cloudinary</span>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>Secure login and user sessions using Passport.js</li>
+                        <li>Dynamic listings index with destination previews</li>
+                        <li>Individual property/detail views via dynamic route parameters</li>
+                        <li>RESTful backend APIs supporting listing data and user sessions</li>
+                        <li>Image uploads and optimization via Cloudinary</li>
+                    </ul>
+
+                    <div class="project-links">
+                        <a href="https://wanderlust-81q2.onrender.com" target="_blank" rel="noopener noreferrer"
+                            class="project-link project-link-primary">
+                            <i class="fas fa-globe"></i> Live Demo
+                        </a>
+
+                        <a href="https://github.com/brijeshkumarmorya/WanderLust" target="_blank"
+                            rel="noopener noreferrer" class="project-link project-link-secondary">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+
+
+            <!-- Grievance System -->
+            <article class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-headset project-icon"></i>
+                    <h3>AI Grievance Management System</h3>
+                </div>
+
+                <div class="project-body">
+                    <span class="project-role">Frontend Developer · Group Project</span>
+
+                    <p class="project-description">
+                        <strong>Problem:</strong> Traditional grievance handling in colleges is slow and manual, often
+                        taking weeks to route complaints to the correct authority.
+                        <strong>Solution:</strong> Built a system where students can submit grievances through text or
+                        voice input, with multilingual support. Submitted grievances are automatically classified and
+                        routed to the concerned authority, who reviews, resolves the issue, and updates the status.
+                        <strong>Result:</strong> Faster grievance routing, improved transparency, and reduced manual
+                        intervention in the complaint handling process.
+                    </p>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">NLP Models</span>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>Text and voice-based grievance submission</li>
+                        <li>Multilingual support using language models</li>
+                        <li>Automatic grievance routing to concerned authority</li>
+                        <li>Status tracking for submitted complaints</li>
+                        <li>Collaborated with team members on UI and system integration</li>
+                    </ul>
+
+                    <div class="project-links">
+                        <a href="https://github.com/suzain9084/AI-Based-Grivance-Management-System" target="_blank"
+                            rel="noopener noreferrer" class="project-link project-link-primary">
+                            <i class="fab fa-github"></i> Repository
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- Fake News Detector -->
+            <article class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-shield-halved project-icon"></i>
+                    <h3>Fake News Detector</h3>
+                </div>
+                <div class="project-body">
+                    <span class="project-role">ML Engineer</span>
+                    <p class="project-description"><strong>Problem:</strong> Text classification requires careful
+                        feature engineering and model selection. <strong>Solution:</strong> Built TF-IDF vectorizer (80K
+                        vocab) and ensemble pipeline with Gradient Boosting, Random Forest, and Logistic Regression on
+                        Kaggle's 44K article dataset. Optimized via grid search and cross-validation.
+                        <strong>Result:</strong> 99.48% accuracy, &lt;1s CPU inference time.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">TF-IDF</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>TF-IDF feature extraction (80K vocabulary)</li>
+                        <li>Gradient Boosting (99.48% accuracy)</li>
+                        <li>Random Forest & Logistic Regression ensemble</li>
+                        <li>44K balanced Kaggle dataset</li>
+                        <li>Precision, Recall, F1-score evaluation</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/brijeshkumarmorya/Fake-News-Detection-Tool" target="_blank"
+                            rel="noopener noreferrer" class="project-link project-link-primary">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Skills & Technologies</h2>
+
+        <div class="skills-wrapper">
+
+            <!-- Programming Languages -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-code"></i> Programming Languages
+                </div>
+                <div class="tech-items with-icons">
+                    <span class="tech-item"><i class="fab fa-python"></i> Python</span>
+                    <span class="tech-item"><i class="fab fa-java"></i> Java</span>
+                    <span class="tech-item"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="tech-item">C</span>
+                    <span class="tech-item">Dart</span>
+                </div>
+            </div>
+
+            <!-- Frontend Development -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-desktop"></i> Frontend Development
+                </div>
+                <div class="tech-items with-icons">
+                    <span class="tech-item"><i class="fab fa-react"></i> React</span>
+                    <span class="tech-item"><i class="fas fa-mobile-alt"></i> Flutter</span>
+                    <span class="tech-item"><i class="fab fa-html5"></i> HTML</span>
+                    <span class="tech-item"><i class="fab fa-css3-alt"></i> CSS</span>
+                    <span class="tech-item">EJS</span>
+                </div>
+            </div>
+
+            <!-- Backend Development -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-server"></i> Backend Development
+                </div>
+                <div class="tech-items with-icons">
+                    <span class="tech-item"><i class="fab fa-node-js"></i> Node.js</span>
+                    <span class="tech-item">Express.js</span>
+                    <span class="tech-item">RESTful APIs</span>
+                    <span class="tech-item">Authentication & Authorization</span>
+                </div>
+            </div>
+
+            <!-- Databases -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-database"></i> Databases
+                </div>
+                <div class="tech-items with-icons">
+                    <span class="tech-item">MongoDB</span>
+                    <span class="tech-item">MySQL</span>
+                </div>
+            </div>
+
+            <!-- Cloud Computing -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-cloud"></i> Cloud Computing
+                </div>
+                <div class="tech-items with-icons">
+                    <span class="tech-item"><i class="fab fa-aws"></i> AWS</span>
+                </div>
+            </div>
+
+            <!-- Testing & Automation -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-vial"></i> Testing & Automation
+                </div>
+                <div class="tech-items">
+                    <span class="tech-item">Selenium</span>
+                    <span class="tech-item">Manual Testing</span>
+                </div>
+            </div>
+
+            <!-- Tools & Platforms -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-tools"></i> Tools & Platforms
+                </div>
+                <div class="tech-items with-icons">
+                    <span class="tech-item"><i class="fab fa-git-alt"></i> Git</span>
+                    <span class="tech-item"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="tech-item">Postman</span>
+                    <span class="tech-item"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="tech-item">VS Code</span>
+                </div>
+            </div>
+
+            <!-- Project Management -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-tasks"></i> Project Management & Collaboration
+                </div>
+                <div class="tech-items">
+                    <span class="tech-item">JIRA</span>
+                    <span class="tech-item">Bugzilla</span>
+                    <span class="tech-item">GitHub</span>
+                </div>
+            </div>
+
+            <!-- Embedded Systems -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-microchip"></i> Embedded Systems (Academic Exposure)
+                </div>
+                <div class="tech-items">
+                    <span class="tech-item">Arduino</span>
+                    <span class="tech-item">Raspberry Pi</span>
+                </div>
+            </div>
+
+            <!-- Core Computer Science -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-graduation-cap"></i> Core Computer Science
+                </div>
+                <div class="tech-items">
+                    <span class="tech-item">Data Structures & Algorithms</span>
+                    <span class="tech-item">Object-Oriented Programming</span>
+                    <span class="tech-item">Operating Systems</span>
+                    <span class="tech-item">Computer Networks</span>
+                    <span class="tech-item">Database Management Systems</span>
+                    <span class="tech-item">Software Development Life Cycle (SDLC)</span>
+                    <span class="tech-item">REST Architecture</span>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="tech-category">
+                <div class="category-label">
+                    <i class="fas fa-user-check"></i> Soft Skills
+                </div>
+                <div class="tech-items">
+                    <span class="tech-item">Problem Solving</span>
+                    <span class="tech-item">Analytical Thinking</span>
+                    <span class="tech-item">Teamwork</span>
+                    <span class="tech-item">Communication</span>
+                    <span class="tech-item">Time Management</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+
+        <div class="education-wrapper">
+            <div class="education-card">
+
+                <div class="education-left">
+                    <div class="edu-badge">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+
+                <div class="education-right">
+                    <h3>Bachelor of Technology (B.Tech)</h3>
+
+                    <p class="edu-specialization">
+                        Computer Science & Engineering <span>| Software Engineering</span>
+                    </p>
+
+                    <div class="edu-meta">
+                        <span><i class="fas fa-university"></i> Faculty of Technology, University of Delhi</span>
+                        <span><i class="fas fa-calendar"></i> 2023 – 2027</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="contact-content">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h4>Email</h4>
+                <a href="mailto:brijeshkm956@gmail.com">brijeshkm956@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h4>Phone</h4>
+                <a href="tel:+918077918381">+91 8077918381</a>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h4>Location</h4>
+                <p>Delhi, India</p>
+            </div>
+        </div>
+        <p class="contact-cta">Open to internship and junior backend developer roles. Available for remote and on-site
+            positions.</p>
+        <div class="social-links">
+            <a href="https://github.com/brijeshkumarmorya" target="_blank" rel="noopener noreferrer" class="social-link"
+                title="GitHub" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/brijeshkumarmorya" target="_blank" rel="noopener noreferrer"
+                class="social-link" title="LinkedIn" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:brijeshkm956@gmail.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                title="Email" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Brijesh Kumar Morya. All rights reserved.</p>
+        <p>Designed and built with <i class="fas fa-code"></i> for clarity and performance</p>
+    </footer>
+</body>
+
+</html>
