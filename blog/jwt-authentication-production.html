@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementing JWT Authentication in Production Node.js Systems | Brijesh Kumar Morya</title>
+  <meta name="description" content="Complete guide to JWT authentication in Node.js: access tokens, refresh token rotation, blacklisting with Redis, and secure cookie storage — from a backend developer at University of Delhi.">
+  <meta name="author" content="Brijesh Kumar Morya">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://brijeshkumarmorya.in/blog/jwt-authentication-production.html">
+  <meta property="og:title" content="Implementing JWT Authentication in Production Node.js Systems | Brijesh Kumar Morya">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Implementing JWT Authentication in Production Node.js Systems","author":{"@type":"Person","name":"Brijesh Kumar Morya","url":"https://brijeshkumarmorya.in/"},"url":"https://brijeshkumarmorya.in/blog/jwt-authentication-production.html","keywords":["JWT authentication Node.js","refresh token rotation","JWT blacklisting","secure cookie JWT","Node.js auth","backend security India"],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://brijeshkumarmorya.in/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://brijeshkumarmorya.in/blog/"},{"@type":"ListItem","position":3,"name":"JWT Authentication","item":"https://brijeshkumarmorya.in/blog/jwt-authentication-production.html"}]}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>:root{--bg:#080f1c;--surface:#0c1526;--border:rgba(0,245,212,.08);--border-mid:rgba(0,245,212,.18);--text-head:#e8f4ff;--text-body:#7e92b5;--text-muted:#4a5f80;--text-label:#a0b4cf;--accent:#00F5D4;--accent-dim:rgba(0,245,212,.12);--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 0;background:rgba(8,15,28,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-inner{max-width:760px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between}.nav-logo{font-family:var(--font-head);font-size:1.2rem;font-weight:800;color:var(--accent)}.nav-back{font-family:var(--font-mono);font-size:.82rem;color:var(--text-label);display:flex;align-items:center;gap:.5rem}.nav-back:hover{color:var(--accent);text-decoration:none}.article-wrap{max-width:760px;margin:0 auto;padding:7rem 1.5rem 5rem}.breadcrumbs{font-family:var(--font-mono);font-size:.75rem;color:var(--text-muted);margin-bottom:2rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}.breadcrumbs a{color:var(--text-muted)}.breadcrumbs a:hover{color:var(--accent)}.breadcrumbs span{color:var(--accent)}.article-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}.article-tag{font-family:var(--font-mono);font-size:.72rem;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-mid);border-radius:100px;padding:.2rem .8rem}h1.article-title{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--text-head);line-height:1.15;letter-spacing:-.03em;margin-bottom:1.5rem}.article-meta{font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);display:flex;gap:1.5rem;flex-wrap:wrap}.article-meta span{display:flex;align-items:center;gap:.4rem}.article-meta i{color:var(--accent)}.article-body h2{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--text-head);margin:2.5rem 0 1rem;letter-spacing:-.02em}.article-body h3{font-family:var(--font-head);font-size:1.2rem;font-weight:600;color:var(--text-label);margin:2rem 0 .75rem}.article-body p{font-size:1rem;line-height:1.85;color:var(--text-body);margin-bottom:1.25rem}.article-body strong{color:var(--text-label);font-weight:500}.article-body ul,.article-body ol{margin:1rem 0 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.5rem}.article-body li{font-size:.97rem;color:var(--text-body);line-height:1.75}.article-body pre{background:var(--surface);border:1px solid var(--border-mid);border-radius:8px;padding:1.25rem 1.5rem;overflow-x:auto;margin:1.5rem 0;font-family:var(--font-mono);font-size:.83rem;line-height:1.6;color:#a0c4ff}.article-body code{font-family:var(--font-mono);font-size:.88em;color:var(--accent);background:var(--accent-dim);padding:.1rem .4rem;border-radius:3px}.article-body pre code{color:#a0c4ff;background:none;padding:0;font-size:1em}.internal-link-box{background:var(--surface);border:1px solid var(--border-mid);border-radius:8px;padding:1rem 1.25rem;margin:2rem 0;display:flex;align-items:center;gap:1rem}.internal-link-box i{color:var(--accent);font-size:1.1rem;flex-shrink:0}.internal-link-box p{margin:0;font-size:.9rem}.article-footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border)}.author-card{display:flex;gap:1rem;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.author-avatar{width:60px;height:60px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--border-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-head);font-weight:800;color:var(--accent);font-size:1.2rem}.author-name{font-family:var(--font-head);font-weight:700;color:var(--text-head);margin-bottom:.25rem}.author-bio{font-size:.9rem;color:var(--text-body);line-height:1.65}.related-posts{margin-top:3rem}.related-posts h3{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--text-head);margin-bottom:1rem}.related-list{display:flex;flex-direction:column;gap:.75rem}.related-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}.related-item:hover{border-color:var(--border-mid);text-decoration:none}.related-item i{color:var(--accent);flex-shrink:0}.related-item span{font-size:.9rem;color:var(--text-label)}footer{margin-top:4rem;border-top:1px solid var(--border);padding:1.5rem;text-align:center;font-family:var(--font-mono);font-size:.75rem;color:var(--text-muted)}footer a{color:var(--accent)}</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">[BKM]</a>
+      <a href="/blog/" class="nav-back"><i class="fas fa-arrow-left"></i> All Articles</a>
+    </div>
+  </nav>
+
+  <article class="article-wrap" itemscope itemtype="https://schema.org/Article">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>JWT Authentication</span>
+    </nav>
+    <div class="article-tags">
+      <span class="article-tag">JWT</span><span class="article-tag">Authentication</span>
+      <span class="article-tag">Node.js</span><span class="article-tag">Security</span>
+    </div>
+    <h1 class="article-title" itemprop="headline">Implementing JWT Authentication in Production Node.js Systems</h1>
+    <div class="article-meta">
+      <span><i class="fas fa-user"></i> Brijesh Kumar Morya</span>
+      <span><i class="fas fa-clock"></i> 7 min read</span>
+      <span><i class="fas fa-tag"></i> Security</span>
+    </div>
+
+    <div class="article-body" itemprop="articleBody">
+      <p>
+        When I built the authentication system for <strong>PerSplit</strong>, I quickly discovered that most JWT tutorials stop at the wrong place — they show you how to sign and verify a token, but skip the hard parts: <strong>refresh token rotation</strong>, <strong>token blacklisting on logout</strong>, and <strong>secure storage in mobile clients</strong>. This article covers the full production-grade flow I implemented.
+      </p>
+
+      <h2>Why JWT Over Sessions?</h2>
+      <p>
+        PerSplit is a <strong>mobile-first app</strong> (Flutter) with a stateless Node.js backend. Session-based auth requires server-side storage and sticky sessions — both add infrastructure complexity. JWT is stateless: the server only needs a secret key to verify any token, making horizontal scaling trivial.
+      </p>
+      <p>
+        The trade-off: tokens cannot be invalidated server-side before they expire. This is where <strong>refresh token rotation</strong> and a <strong>token blacklist</strong> become essential.
+      </p>
+
+      <h2>Token Architecture: Short-Lived Access + Long-Lived Refresh</h2>
+      <p>
+        I use a two-token strategy:
+      </p>
+      <ul>
+        <li><strong>Access Token</strong> — valid for 15 minutes. Sent in every API request via <code>Authorization: Bearer</code> header.</li>
+        <li><strong>Refresh Token</strong> — valid for 7 days. Stored in an <code>HttpOnly</code> cookie. Used only to obtain new access tokens.</li>
+      </ul>
+      <pre><code>// utils/tokenService.js
+const jwt = require('jsonwebtoken');
+
+exports.signAccessToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.JWT_ACCESS_SECRET, { expiresIn: '15m' });
+
+exports.signRefreshToken = (userId) =>
+  jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
+
+exports.verifyAccessToken = (token) =>
+  jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+
+exports.verifyRefreshToken = (token) =>
+  jwt.verify(token, process.env.JWT_REFRESH_SECRET);</code></pre>
+
+      <h2>Secure Refresh Token Storage</h2>
+      <p>
+        The most common JWT mistake is storing the refresh token in <code>localStorage</code> — this is vulnerable to XSS. I store it in an <code>HttpOnly, Secure, SameSite=Strict</code> cookie:
+      </p>
+      <pre><code>// On login success
+res.cookie('refreshToken', refreshToken, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'Strict',
+  maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days in ms
+});
+
+res.json({ accessToken });</code></pre>
+      <p>
+        JavaScript running on the page cannot read an <code>HttpOnly</code> cookie, so XSS attacks cannot steal the refresh token.
+      </p>
+
+      <h2>Refresh Token Rotation</h2>
+      <p>
+        Each time a refresh token is used to get a new access token, I issue a <strong>new refresh token</strong> and invalidate the old one. This limits the window of exploit if a refresh token is stolen:
+      </p>
+      <pre><code>// POST /api/v1/auth/refresh
+exports.refreshTokens = async (req, res, next) => {
+  const { refreshToken } = req.cookies;
+  if (!refreshToken) return next(new AppError('No refresh token', 401, 'UNAUTHENTICATED'));
+
+  // Verify the token is valid
+  let decoded;
+  try {
+    decoded = tokenService.verifyRefreshToken(refreshToken);
+  } catch {
+    return next(new AppError('Invalid refresh token', 401, 'INVALID_TOKEN'));
+  }
+
+  // Check it hasn't been blacklisted (used before)
+  const isBlacklisted = await redis.get(`blacklist:${refreshToken}`);
+  if (isBlacklisted) return next(new AppError('Token reuse detected', 401, 'TOKEN_REUSE'));
+
+  // Blacklist the used token
+  await redis.setEx(`blacklist:${refreshToken}`, 7 * 24 * 3600, '1');
+
+  // Issue new pair
+  const newAccessToken = tokenService.signAccessToken(decoded.id);
+  const newRefreshToken = tokenService.signRefreshToken(decoded.id);
+
+  res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'Strict', maxAge: 7*24*60*60*1000 });
+  res.json({ accessToken: newAccessToken });
+};</code></pre>
+
+      <h2>Token Blacklisting on Logout</h2>
+      <p>
+        On logout, I blacklist the current refresh token in Redis with a TTL matching the token's remaining lifetime:
+      </p>
+      <pre><code>exports.logout = async (req, res) => {
+  const { refreshToken } = req.cookies;
+  if (refreshToken) {
+    // Blacklist until it would have expired anyway
+    await redis.setEx(`blacklist:${refreshToken}`, 7 * 24 * 3600, '1');
+  }
+  res.clearCookie('refreshToken');
+  res.json({ status: 'success', message: 'Logged out' });
+};</code></pre>
+
+      <h2>Auth Middleware</h2>
+      <p>
+        Every protected route uses this middleware, which extracts and verifies the access token:
+      </p>
+      <pre><code>exports.protect = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader?.startsWith('Bearer ')) {
+    return next(new AppError('Authentication required', 401, 'UNAUTHENTICATED'));
+  }
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = tokenService.verifyAccessToken(token);
+    req.user = await User.findById(decoded.id).select('-password');
+    next();
+  } catch (err) {
+    next(new AppError('Invalid or expired token', 401, 'INVALID_TOKEN'));
+  }
+};</code></pre>
+
+      <h2>JWT Best Practices Checklist</h2>
+      <ul>
+        <li>Use separate secrets for access and refresh tokens</li>
+        <li>Keep access tokens short-lived (15 minutes or less)</li>
+        <li>Store refresh tokens in <code>HttpOnly</code> cookies only</li>
+        <li>Implement refresh token rotation — never reuse a refresh token</li>
+        <li>Blacklist used/logged-out refresh tokens in Redis with TTL</li>
+        <li>Never store sensitive data in the JWT payload (it is base64-encoded, not encrypted)</li>
+        <li>Use <code>RS256</code> (asymmetric) instead of <code>HS256</code> if your resource servers are separate services</li>
+      </ul>
+
+      <div class="internal-link-box">
+        <i class="fas fa-link"></i>
+        <p>Related: <a href="designing-scalable-rest-apis-btech.html">Designing Scalable REST APIs</a> — rate limiting auth routes and consistent error formats for auth failures.</p>
+      </div>
+
+      <h2>Conclusion</h2>
+      <p>
+        Secure JWT authentication is more than <code>jwt.sign()</code> and <code>jwt.verify()</code>. The complete picture involves short-lived access tokens, refresh token rotation, Redis-backed blacklisting, and secure cookie storage. Implementing this properly in PerSplit taught me that security is not a feature you bolt on — it is a constraint you design around from the start.
+      </p>
+      <p>
+        If you are looking for a backend developer who understands authentication security deeply, <a href="/#contact">let's connect</a>.
+      </p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="author-card">
+        <div class="author-avatar">BK</div>
+        <div>
+          <div class="author-name">Brijesh Kumar Morya</div>
+          <div class="author-bio">Backend-focused Full-Stack Developer. B.Tech CSE @ University of Delhi. Specialising in Node.js, Express, REST APIs, and secure backend systems. Open to internships in Delhi and remotely.</div>
+        </div>
+      </div>
+      <div class="related-posts">
+        <h3>Continue Reading</h3>
+        <div class="related-list">
+          <a href="expense-splitting-app-nodejs-mongodb.html" class="related-item"><i class="fas fa-arrow-right"></i><span>How I Built a Real-Time Expense Splitting App with Node.js & MongoDB</span></a>
+          <a href="designing-scalable-rest-apis-btech.html" class="related-item"><i class="fas fa-arrow-right"></i><span>Designing Scalable REST APIs as a B.Tech CSE Student</span></a>
+          <a href="backend-systems-clean-architecture.html" class="related-item"><i class="fas fa-arrow-right"></i><span>Building Backend Systems with Clean Architecture in Node.js</span></a>
+        </div>
+      </div>
+    </footer>
+  </article>
+  <footer><a href="/">brijeshkumarmorya.in</a> · Backend Developer · B.Tech CSE, University of Delhi</footer>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Backend Systems with Clean Architecture in Node.js | Brijesh Kumar Morya</title>
+  <meta name="description" content="Practical guide to layered architecture, dependency injection, and SOLID principles in Node.js/Express — patterns used by Brijesh Kumar Morya, backend developer at University of Delhi.">
+  <meta name="author" content="Brijesh Kumar Morya">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://brijeshkumarmorya.in/blog/backend-systems-clean-architecture.html">
+  <meta property="og:title" content="Building Backend Systems with Clean Architecture in Node.js | Brijesh Kumar Morya">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Building Backend Systems with Clean Architecture in Node.js","author":{"@type":"Person","name":"Brijesh Kumar Morya","url":"https://brijeshkumarmorya.in/"},"url":"https://brijeshkumarmorya.in/blog/backend-systems-clean-architecture.html","keywords":["clean architecture Node.js","SOLID principles Express.js","layered architecture backend","dependency injection Node.js","backend developer India","Node.js best practices","University of Delhi software engineering"],"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://brijeshkumarmorya.in/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://brijeshkumarmorya.in/blog/"},{"@type":"ListItem","position":3,"name":"Clean Architecture Node.js","item":"https://brijeshkumarmorya.in/blog/backend-systems-clean-architecture.html"}]}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>:root{--bg:#080f1c;--surface:#0c1526;--border:rgba(0,245,212,.08);--border-mid:rgba(0,245,212,.18);--text-head:#e8f4ff;--text-body:#7e92b5;--text-muted:#4a5f80;--text-label:#a0b4cf;--accent:#00F5D4;--accent-dim:rgba(0,245,212,.12);--font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 0;background:rgba(8,15,28,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-inner{max-width:760px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between}.nav-logo{font-family:var(--font-head);font-size:1.2rem;font-weight:800;color:var(--accent)}.nav-back{font-family:var(--font-mono);font-size:.82rem;color:var(--text-label);display:flex;align-items:center;gap:.5rem}.nav-back:hover{color:var(--accent);text-decoration:none}.article-wrap{max-width:760px;margin:0 auto;padding:7rem 1.5rem 5rem}.breadcrumbs{font-family:var(--font-mono);font-size:.75rem;color:var(--text-muted);margin-bottom:2rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}.breadcrumbs a{color:var(--text-muted)}.breadcrumbs a:hover{color:var(--accent)}.breadcrumbs span{color:var(--accent)}.article-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}.article-tag{font-family:var(--font-mono);font-size:.72rem;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-mid);border-radius:100px;padding:.2rem .8rem}h1.article-title{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--text-head);line-height:1.15;letter-spacing:-.03em;margin-bottom:1.5rem}.article-meta{font-family:var(--font-mono);font-size:.8rem;color:var(--text-muted);margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);display:flex;gap:1.5rem;flex-wrap:wrap}.article-meta span{display:flex;align-items:center;gap:.4rem}.article-meta i{color:var(--accent)}.article-body h2{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--text-head);margin:2.5rem 0 1rem;letter-spacing:-.02em}.article-body h3{font-family:var(--font-head);font-size:1.2rem;font-weight:600;color:var(--text-label);margin:2rem 0 .75rem}.article-body p{font-size:1rem;line-height:1.85;color:var(--text-body);margin-bottom:1.25rem}.article-body strong{color:var(--text-label);font-weight:500}.article-body ul,.article-body ol{margin:1rem 0 1.5rem 1.5rem;display:flex;flex-direction:column;gap:.5rem}.article-body li{font-size:.97rem;color:var(--text-body);line-height:1.75}.article-body pre{background:var(--surface);border:1px solid var(--border-mid);border-radius:8px;padding:1.25rem 1.5rem;overflow-x:auto;margin:1.5rem 0;font-family:var(--font-mono);font-size:.83rem;line-height:1.6;color:#a0c4ff}.article-body code{font-family:var(--font-mono);font-size:.88em;color:var(--accent);background:var(--accent-dim);padding:.1rem .4rem;border-radius:3px}.article-body pre code{color:#a0c4ff;background:none;padding:0;font-size:1em}.dir-tree{background:var(--surface);border:1px solid var(--border-mid);border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0;font-family:var(--font-mono);font-size:.83rem;line-height:1.8;color:#a0b4cf}.internal-link-box{background:var(--surface);border:1px solid var(--border-mid);border-radius:8px;padding:1rem 1.25rem;margin:2rem 0;display:flex;align-items:center;gap:1rem}.internal-link-box i{color:var(--accent);font-size:1.1rem;flex-shrink:0}.internal-link-box p{margin:0;font-size:.9rem}.article-footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border)}.author-card{display:flex;gap:1rem;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem}.author-avatar{width:60px;height:60px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--border-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-head);font-weight:800;color:var(--accent);font-size:1.2rem}.author-name{font-family:var(--font-head);font-weight:700;color:var(--text-head);margin-bottom:.25rem}.author-bio{font-size:.9rem;color:var(--text-body);line-height:1.65}.related-posts{margin-top:3rem}.related-posts h3{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--text-head);margin-bottom:1rem}.related-list{display:flex;flex-direction:column;gap:.75rem}.related-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}.related-item:hover{border-color:var(--border-mid);text-decoration:none}.related-item i{color:var(--accent);flex-shrink:0}.related-item span{font-size:.9rem;color:var(--text-label)}footer{margin-top:4rem;border-top:1px solid var(--border);padding:1.5rem;text-align:center;font-family:var(--font-mono);font-size:.75rem;color:var(--text-muted)}footer a{color:var(--accent)}</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">[BKM]</a>
+      <a href="/blog/" class="nav-back"><i class="fas fa-arrow-left"></i> All Articles</a>
+    </div>
+  </nav>
+
+  <article class="article-wrap" itemscope itemtype="https://schema.org/Article">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Clean Architecture Node.js</span>
+    </nav>
+    <div class="article-tags">
+      <span class="article-tag">Clean Architecture</span><span class="article-tag">SOLID</span>
+      <span class="article-tag">Node.js</span><span class="article-tag">Express.js</span>
+    </div>
+    <h1 class="article-title" itemprop="headline">Building Backend Systems with Clean Architecture in Node.js</h1>
+    <div class="article-meta">
+      <span><i class="fas fa-user"></i> Brijesh Kumar Morya</span>
+      <span><i class="fas fa-clock"></i> 6 min read</span>
+      <span><i class="fas fa-tag"></i> Software Design</span>
+    </div>
+
+    <div class="article-body" itemprop="articleBody">
+      <p>
+        The first backend I built for a university project was a single 800-line <code>app.js</code> file. Express routes, Mongoose queries, business logic, and email-sending code all tangled together. It worked — until it didn't. The moment I needed to add unit tests or swap MongoDB for PostgreSQL, I realised I had not built a backend; I had built a ball of mud.
+      </p>
+      <p>
+        Clean Architecture, popularised by Robert C. Martin, is a set of principles that keep your business logic independent of frameworks, databases, and delivery mechanisms. Here is how I apply it to every Node.js/Express project I build today.
+      </p>
+
+      <h2>The Core Principle: Dependency Rule</h2>
+      <p>
+        The Dependency Rule states: <strong>source code dependencies must point inward only</strong>. Your business logic (domain layer) must not know anything about Express, MongoDB, or any external library. The outer layers (HTTP, database) depend on the inner layers — never the other way around.
+      </p>
+      <p>
+        In practice, this means your <code>UserService</code> doesn't call <code>User.findById()</code> directly. It calls a <code>UserRepository</code> interface, and MongoDB implements that interface externally.
+      </p>
+
+      <h2>My Folder Structure</h2>
+      <div class="dir-tree">
+src/<br>
+├── config/<br>
+│   ├── db.js              # MongoDB connection<br>
+│   └── env.js             # Env var validation<br>
+├── domain/<br>
+│   ├── entities/          # Pure JS classes, no framework deps<br>
+│   └── errors/            # Domain-specific error types<br>
+├── application/<br>
+│   ├── services/          # Business logic (UserService, ExpenseService)<br>
+│   └── use-cases/         # Optional: one-function use-case files<br>
+├── infrastructure/<br>
+│   ├── repositories/      # MongoDB implementations<br>
+│   ├── email/             # Nodemailer adapter<br>
+│   └── cache/             # Redis adapter<br>
+├── interfaces/<br>
+│   ├── controllers/       # Express route handlers<br>
+│   ├── middleware/        # Auth, validation, error handling<br>
+│   └── routes/            # Route definitions<br>
+└── app.js                 # Express app factory
+      </div>
+
+      <h2>Layer 1: Domain Entities</h2>
+      <p>
+        Domain entities are plain JavaScript classes with no framework dependencies. They encode business rules:
+      </p>
+      <pre><code>// domain/entities/Expense.js
+class Expense {
+  constructor({ id, groupId, payerId, amount, description, splitType, splits }) {
+    if (amount <= 0) throw new Error('Expense amount must be positive');
+    if (!['equal', 'percentage', 'exact'].includes(splitType)) {
+      throw new Error('Invalid split type');
+    }
+    this.id = id;
+    this.groupId = groupId;
+    this.payerId = payerId;
+    this.amount = amount;
+    this.description = description;
+    this.splitType = splitType;
+    this.splits = splits;
+    this.createdAt = new Date();
+  }
+
+  // Business rule: validate splits sum to 100% for percentage type
+  validateSplits() {
+    if (this.splitType === 'percentage') {
+      const total = this.splits.reduce((sum, s) => sum + s.percentage, 0);
+      if (Math.abs(total - 100) > 0.01) throw new Error('Splits must total 100%');
+    }
+  }
+}
+
+module.exports = Expense;</code></pre>
+      <p>
+        Notice: no Mongoose, no Express, no imports from infrastructure. This class can be unit-tested with zero mocking.
+      </p>
+
+      <h2>Layer 2: Repository Interfaces</h2>
+      <p>
+        JavaScript lacks formal interfaces, but I define them as abstract classes with documented contracts:
+      </p>
+      <pre><code>// domain/repositories/IExpenseRepository.js
+class IExpenseRepository {
+  async findById(id) { throw new Error('Not implemented'); }
+  async findByGroupId(groupId, options) { throw new Error('Not implemented'); }
+  async create(expenseData) { throw new Error('Not implemented'); }
+  async update(id, data) { throw new Error('Not implemented'); }
+  async delete(id) { throw new Error('Not implemented'); }
+}
+
+module.exports = IExpenseRepository;</code></pre>
+
+      <h2>Layer 3: Application Services</h2>
+      <p>
+        Services receive their dependencies through constructor injection — no hard imports of infrastructure:
+      </p>
+      <pre><code>// application/services/ExpenseService.js
+const Expense = require('../../domain/entities/Expense');
+const { minimiseTransactions } = require('../algorithms/settlement');
+
+class ExpenseService {
+  constructor(expenseRepo, groupRepo, notificationService) {
+    this.expenseRepo = expenseRepo;           // injected
+    this.groupRepo = groupRepo;              // injected
+    this.notificationService = notificationService; // injected
+  }
+
+  async createExpense(groupId, payerId, data) {
+    const group = await this.groupRepo.findById(groupId);
+    if (!group) throw new AppError('Group not found', 404, 'GROUP_NOT_FOUND');
+
+    const expense = new Expense({ groupId, payerId, ...data });
+    expense.validateSplits();
+
+    const saved = await this.expenseRepo.create(expense);
+    await this.notificationService.notifyGroup(groupId, 'expense:created', saved);
+    return saved;
+  }
+}</code></pre>
+
+      <h2>Layer 4: Infrastructure (MongoDB Repository)</h2>
+      <pre><code>// infrastructure/repositories/MongoExpenseRepository.js
+const IExpenseRepository = require('../../domain/repositories/IExpenseRepository');
+const ExpenseModel = require('../models/ExpenseModel');
+
+class MongoExpenseRepository extends IExpenseRepository {
+  async findById(id) {
+    return ExpenseModel.findById(id).lean();
+  }
+
+  async create(expense) {
+    const doc = await ExpenseModel.create(expense);
+    return doc.toObject();
+  }
+  // ... other methods
+}
+
+module.exports = MongoExpenseRepository;</code></pre>
+
+      <h2>Layer 5: Dependency Injection via Composition Root</h2>
+      <p>
+        I wire everything together in a single <strong>composition root</strong> — the only place that knows about all layers:
+      </p>
+      <pre><code>// app.js  (composition root)
+const MongoExpenseRepository = require('./infrastructure/repositories/MongoExpenseRepository');
+const ExpenseService = require('./application/services/ExpenseService');
+const ExpenseController = require('./interfaces/controllers/ExpenseController');
+
+// Compose
+const expenseRepo = new MongoExpenseRepository();
+const expenseService = new ExpenseService(expenseRepo, groupRepo, notificationService);
+const expenseController = new ExpenseController(expenseService);
+
+// Wire routes
+app.use('/api/v1/expenses', expenseController.router);</code></pre>
+      <p>
+        To swap MongoDB for PostgreSQL, I create a <code>PgExpenseRepository</code> implementing the same interface and change one line in <code>app.js</code>. The service layer is completely unaffected.
+      </p>
+
+      <h2>SOLID Principles in Practice</h2>
+      <ul>
+        <li><strong>S – Single Responsibility</strong>: Each class does one thing. <code>ExpenseService</code> handles business logic; <code>MongoExpenseRepository</code> handles persistence.</li>
+        <li><strong>O – Open/Closed</strong>: Add a new payment gateway by creating a new adapter class, not by modifying existing code.</li>
+        <li><strong>L – Liskov Substitution</strong>: Any repository implementing <code>IExpenseRepository</code> is substitutable.</li>
+        <li><strong>I – Interface Segregation</strong>: Keep repository interfaces small and focused.</li>
+        <li><strong>D – Dependency Inversion</strong>: Services depend on abstractions (interfaces), not MongoDB directly.</li>
+      </ul>
+
+      <div class="internal-link-box">
+        <i class="fas fa-link"></i>
+        <p>See this architecture in action: <a href="expense-splitting-app-nodejs-mongodb.html">How I built the PerSplit expense app</a> using this layered approach with Socket.IO and MongoDB.</p>
+      </div>
+
+      <h2>Is This Overkill for Small Projects?</h2>
+      <p>
+        For a solo weekend project with 5 routes — yes, probably. But the moment you have 2+ developers, need unit tests, or plan to scale, this structure pays enormous dividends. The discipline of separating concerns forces you to think about your domain model clearly, which produces better APIs and fewer bugs regardless of project size.
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        Clean Architecture is not a rigid methodology — it is a set of principles that guide structure. The goal is a codebase where <strong>the business rules can be understood and tested independently of any framework or database</strong>. Every Node.js backend I build today follows this layered approach, and it has dramatically reduced the time I spend debugging and refactoring.
+      </p>
+      <p>
+        If you are building backend systems and want a developer who thinks about architecture from day one, <a href="/#contact">get in touch</a>.
+      </p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="author-card">
+        <div class="author-avatar">BK</div>
+        <div>
+          <div class="author-name">Brijesh Kumar Morya</div>
+          <div class="author-bio">Backend-focused Full-Stack Developer. B.Tech CSE @ University of Delhi. Specialising in Node.js, Express, clean architecture, and REST API design. Open to internships and junior roles in Delhi and remotely.</div>
+        </div>
+      </div>
+      <div class="related-posts">
+        <h3>Continue Reading</h3>
+        <div class="related-list">
+          <a href="expense-splitting-app-nodejs-mongodb.html" class="related-item"><i class="fas fa-arrow-right"></i><span>How I Built a Real-Time Expense Splitting App with Node.js & MongoDB</span></a>
+          <a href="designing-scalable-rest-apis-btech.html" class="related-item"><i class="fas fa-arrow-right"></i><span>Designing Scalable REST APIs as a B.Tech CSE Student</span></a>
+          <a href="jwt-authentication-production.html" class="related-item"><i class="fas fa-arrow-right"></i><span>Implementing JWT Authentication in Production Node.js Systems</span></a>
+        </div>
+      </div>
+    </footer>
+  </article>
+  <footer><a href="/">brijeshkumarmorya.in</a> · Backend Developer · B.Tech CSE, University of Delhi</footer>
+</body>
+</html>

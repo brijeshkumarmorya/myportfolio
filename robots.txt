@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://brijeshkumarmorya.in/sitemap.xml
+
+# Block any admin paths that may exist in future
+Disallow: /admin/
+Disallow: /api/
