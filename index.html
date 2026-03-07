@@ -9,7 +9,7 @@
   <title>Brijesh Kumar Morya | Backend Developer | B.Tech CSE University of Delhi</title>
   <link rel="icon" href="b.png" type="image/x-icon">
   <meta name="description"
-    content="Brijesh Kumar Morya – Backend-focused Full-Stack Developer and B.Tech CSE student at University of Delhi. Available for Node.js internships & backend engineering roles in Delhi, India.">
+    content="Brijesh Kumar Morya – Backend-focused Full-Stack Developer and B.Tech CSE student at University of Delhi. Building HealthSetu (Cloud Run, Firebase Auth), PerSplit, WanderLust, and ML projects. Open to Node.js internships &amp; backend engineering roles.">
   <meta name="keywords"
     content="Brijesh Kumar Morya, Backend Developer India, Node.js Developer Delhi, University of Delhi CSE, Backend Full Stack Developer India, B.Tech Software Engineering Delhi, MERN Stack Developer, Express.js Developer India, MongoDB Developer">
   <meta name="author" content="Brijesh Kumar Morya">
@@ -21,7 +21,7 @@
   <meta property="og:site_name" content="Brijesh Kumar Morya">
   <meta property="og:title" content="Brijesh Kumar Morya | Backend Developer | B.Tech CSE University of Delhi">
   <meta property="og:description"
-    content="Backend-focused Full-Stack Developer and B.Tech CSE student at University of Delhi. Building scalable Node.js APIs, real-time systems, and ML-powered tools. Open to internships.">
+    content="Backend-focused Full-Stack Developer building HealthSetu (Cloud Run, Firebase Auth, AI dialysis booking), PerSplit, WanderLust, and ML-powered tools. B.Tech CSE at University of Delhi. Open to internships.">
   <meta property="og:url" content="https://brijeshkumarmorya.in/">
   <meta property="og:image" content="https://brijeshkumarmorya.in/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -44,6 +44,7 @@
   <meta name="geo.placename" content="Delhi, India">
   <meta name="revisit-after" content="7 days">
   <meta name="theme-color" content="#00F5D4">
+  <link rel="dns-prefetch" href="https://formspree.io">
 
   <!-- ===================== PRELOADS ===================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,10 +127,9 @@
             "position": 1,
             "item": {
               "@type": "SoftwareApplication",
-              "name": "PerSplit – Expense Splitting App",
-              "description": "Full-stack expense splitting app with real-time WebSocket sync, UPI QR settlement, and optimized net settlement algorithm. Built with Node.js, Express.js, MongoDB, Flutter, and Socket.IO.",
-              "applicationCategory": "FinanceApplication",
-              "operatingSystem": "Android, iOS",
+              "name": "HealthSetu – AI Dialysis Booking Platform",
+              "description": "AI-powered dialysis booking platform with conflict-free allocation engine, role-based APIs, Firebase Auth, and Google Cloud Run deployment.",
+              "applicationCategory": "HealthApplication",
               "author": {"@id": "https://brijeshkumarmorya.in/#person"},
               "url": "https://brijeshkumarmorya.in/#projects"
             }
@@ -139,8 +139,21 @@
             "position": 2,
             "item": {
               "@type": "SoftwareApplication",
+              "name": "PerSplit – Expense Splitting App",
+              "description": "Full-stack expense splitting app with real-time WebSocket sync, UPI QR settlement, and optimised net settlement algorithm. Built with Node.js, Express.js, MongoDB, Flutter, and Socket.IO.",
+              "applicationCategory": "FinanceApplication",
+              "operatingSystem": "Android, iOS",
+              "author": {"@id": "https://brijeshkumarmorya.in/#person"},
+              "url": "https://brijeshkumarmorya.in/#projects"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "SoftwareApplication",
               "name": "WanderLust – Travel Listings App",
-              "description": "Full-stack travel listing platform with Passport.js session-based auth, Cloudinary image optimization, and RESTful CRUD backend.",
+              "description": "Full-stack travel listing platform with Passport.js session-based auth, Cloudinary image optimisation, and RESTful CRUD backend.",
               "applicationCategory": "TravelApplication",
               "url": "https://wanderlust-81q2.onrender.com",
               "author": {"@id": "https://brijeshkumarmorya.in/#person"}
@@ -148,7 +161,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 3,
+            "position": 4,
             "item": {
               "@type": "SoftwareApplication",
               "name": "AI Grievance Management System",
@@ -160,7 +173,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 5,
             "item": {
               "@type": "SoftwareApplication",
               "name": "Fake News Detector",
@@ -1721,10 +1734,262 @@
         transform: none
       }
     }
+
+    /* =========================================================
+       PROJECT METRICS ROW
+    ========================================================= */
+    .project-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      margin: var(--s1) 0 var(--s2);
+    }
+    .project-metrics .metric-accent {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .project-metrics .metric-label {
+      color: var(--text-muted);
+    }
+
+    /* =========================================================
+       ARCHITECTURE DIAGRAM TOGGLE
+    ========================================================= */
+    .arch-toggle {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--accent);
+      border: 1px solid var(--border-mid);
+      border-radius: 4px;
+      padding: .3rem .7rem;
+      background: var(--accent-dim);
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+      transition: background var(--dur-fast), border-color var(--dur-fast);
+      margin-top: var(--s1);
+      display: inline-block;
+    }
+    .arch-toggle:hover {
+      background: var(--surface-3);
+      border-color: var(--accent);
+    }
+    .arch-diagram {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: var(--s2);
+      margin-top: var(--s1);
+      overflow-x: auto;
+    }
+    details[open] > .arch-toggle::before { content: '▾ '; }
+    details:not([open]) > .arch-toggle::before { content: '▸ '; }
+
+    /* =========================================================
+       CONTACT FORM
+    ========================================================= */
+    .contact-form {
+      max-width: 640px;
+      margin: 0 auto var(--s4);
+      text-align: left;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s2);
+      margin-bottom: var(--s2);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      margin-bottom: var(--s2);
+    }
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      color: var(--text-label);
+      letter-spacing: .04em;
+    }
+    .form-input,
+    .form-textarea {
+      background: var(--surface-2);
+      border: 1px solid var(--border-mid);
+      border-radius: 6px;
+      color: var(--text-head);
+      font-family: var(--font-body);
+      font-size: .9rem;
+      padding: .75rem 1rem;
+      width: 100%;
+      transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+      outline: none;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form-submit {
+      width: 100%;
+      font-size: .9rem;
+    }
+    .form-success {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      margin-top: var(--s2);
+      display: none;
+    }
+    .form-error {
+      color: #ff6b6b;
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      margin-top: var(--s2);
+      display: none;
+    }
+    @media(max-width:600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* =========================================================
+       ACHIEVEMENTS SECTION
+    ========================================================= */
+    .cp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s2);
+      margin-bottom: var(--s5);
+    }
+    .cp-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: var(--s3);
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: border-color var(--dur-mid), transform var(--dur-mid) var(--ease), box-shadow var(--dur-mid);
+    }
+    .cp-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-4px);
+      box-shadow: var(--glow-card);
+    }
+    .cp-card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--s2);
+    }
+    .cp-card-icon i {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+    .cp-platform {
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text-head);
+      margin-bottom: .25rem;
+    }
+    .cp-stat {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: .25rem;
+    }
+    .cp-stat-label {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      color: var(--text-muted);
+    }
+    .achievement-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s2);
+    }
+    .achievement-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: var(--s3);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--s3);
+      transition: border-color var(--dur-mid), transform var(--dur-mid) var(--ease), box-shadow var(--dur-mid);
+    }
+    .achievement-item:hover {
+      border-color: var(--border-mid);
+      transform: translateX(4px);
+      box-shadow: var(--glow-card);
+    }
+    .achievement-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      background: var(--accent-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .achievement-icon i {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+    .achievement-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-head);
+      margin-bottom: .25rem;
+    }
+    .achievement-desc {
+      font-size: .88rem;
+      color: var(--text-body);
+    }
+    @media(max-width:768px) {
+      .cp-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* =========================================================
+       SKIP TO CONTENT
+    ========================================================= */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--s2);
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      padding: .5rem 1rem;
+      border-radius: 0 0 4px 4px;
+      text-decoration: none;
+      z-index: 20000;
+      transition: top var(--dur-fast);
+    }
+    .skip-link:focus {
+      top: 0;
+    }
   </style>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
   <!-- Custom cursor -->
   <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
@@ -1750,9 +2015,10 @@
           <li><a href="#about" data-num="01." aria-current="false">About</a></li>
           <li><a href="#projects" data-num="02." aria-current="false">Projects</a></li>
           <li><a href="#skills" data-num="03." aria-current="false">Skills</a></li>
-          <li><a href="#blog" data-num="04." aria-current="false">Blog</a></li>
-          <li><a href="#education" data-num="05." aria-current="false">Education</a></li>
-          <li><a href="#contact" data-num="06." aria-current="false">Contact</a></li>
+          <li><a href="#achievements" data-num="04." aria-current="false">Achievements</a></li>
+          <li><a href="#blog" data-num="05." aria-current="false">Blog</a></li>
+          <li><a href="#education" data-num="06." aria-current="false">Education</a></li>
+          <li><a href="#contact" data-num="07." aria-current="false">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -1844,16 +2110,16 @@
 
           <aside class="about-sidebar" aria-label="Quick stats">
             <div class="about-stat reveal reveal-delay-1">
-              <div class="stat-value">4+</div>
+              <div class="stat-value">5+</div>
               <div class="stat-label">Projects Built</div>
             </div>
             <div class="about-stat reveal reveal-delay-2">
-              <div class="stat-value">2027</div>
-              <div class="stat-label">Expected Graduation</div>
+              <div class="stat-value">2</div>
+              <div class="stat-label">Cloud Deployments</div>
             </div>
             <div class="about-stat reveal reveal-delay-3">
-              <div class="stat-value">∞</div>
-              <div class="stat-label">Lines of Code</div>
+              <div class="stat-value">3+</div>
+              <div class="stat-label">Tech Stacks</div>
             </div>
           </aside>
         </div>
@@ -1881,8 +2147,8 @@
             <a href="mailto:brijeshkm956@gmail.com" class="btn btn-primary">
               <i class="fas fa-envelope" aria-hidden="true"></i> Reach Out
             </a>
-            <a href="https://drive.google.com/file/d/1Flc-VUguz5VM22DaXtZih4Qy9RiHJ3AB/view?usp=drive_link"
-              target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="resume-cta">
+            <a href="https://drive.google.com/file/d/13EtnfW-HcsToSFPkqDuuQ3N_1EervCnF/view?usp=sharing"
+              target="_blank" rel="noopener noreferrer" class="btn btn-outline" id="resume-cta"><!-- canonical resume URL – matches #resume-download in hero -->
               <i class="fas fa-file-download" aria-hidden="true"></i> Download Resume
             </a>
           </div>
@@ -1903,8 +2169,97 @@
 
         <div class="projects-grid">
 
-          <!-- PerSplit -->
+          <!-- HealthSetu -->
           <article class="project-card reveal" aria-labelledby="proj1-title">
+            <div class="project-thumb" aria-hidden="true">
+              <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="g0a" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0a1220" />
+                    <stop offset="100%" stop-color="#0e1c38" />
+                  </linearGradient>
+                </defs>
+                <rect width="600" height="200" fill="url(#g0a)" />
+                <rect x="40" y="60" width="130" height="80" rx="8" fill="none" stroke="#4fc3f7" stroke-width="1.2" opacity="0.5" />
+                <text x="105" y="105" font-size="10" fill="#4fc3f7" opacity="0.6" text-anchor="middle" font-family="monospace">React UI</text>
+                <rect x="220" y="55" width="160" height="90" rx="8" fill="none" stroke="#00F5D4" stroke-width="1.5" opacity="0.6" />
+                <text x="300" y="95" font-size="10" fill="#00F5D4" opacity="0.7" text-anchor="middle" font-family="monospace">Node/Express API</text>
+                <text x="300" y="110" font-size="9" fill="#00F5D4" opacity="0.5" text-anchor="middle" font-family="monospace">Cloud Run</text>
+                <rect x="430" y="65" width="130" height="70" rx="6" fill="none" stroke="#00F5D4" stroke-width="1" stroke-dasharray="5 3" opacity="0.5" />
+                <text x="495" y="105" font-size="9" fill="#00F5D4" opacity="0.55" text-anchor="middle" font-family="monospace">Allocation Engine</text>
+                <rect x="240" y="15" width="120" height="30" rx="6" fill="none" stroke="#4fc3f7" stroke-width="1" opacity="0.45" />
+                <text x="300" y="34" font-size="9" fill="#4fc3f7" opacity="0.6" text-anchor="middle" font-family="monospace">Firebase Auth</text>
+                <line x1="170" y1="100" x2="220" y2="100" stroke="#00F5D4" stroke-width="1" opacity="0.4" marker-end="url(#arr)" />
+                <line x1="380" y1="100" x2="430" y2="100" stroke="#00F5D4" stroke-width="1" opacity="0.35" />
+                <line x1="300" y1="55" x2="300" y2="45" stroke="#4fc3f7" stroke-width="1" opacity="0.4" />
+                <pattern id="pd0" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <circle cx="15" cy="15" r="1" fill="#00F5D4" opacity="0.07" />
+                </pattern>
+                <rect width="600" height="200" fill="url(#pd0)" />
+              </svg>
+              <div class="project-thumb-overlay"></div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-role">Backend Developer</span>
+                <span class="project-type">Group Project · Jan 2026–Present</span>
+              </div>
+              <h3 class="project-title" id="proj1-title">HealthSetu – AI Dialysis Booking Platform</h3>
+              <p class="project-desc">
+                <strong>Problem:</strong> Dialysis scheduling is fragmented, leading to booking conflicts and poor patient experience.
+                <strong>Solution:</strong> AI-powered booking platform with a conflict-free allocation engine, role-based APIs, and Firebase-authenticated access for patients, doctors, and admins.
+                <strong>Result:</strong> Zero booking conflicts via smart slot allocation, deployed on Google Cloud Run for auto-scaling.
+              </p>
+              <div class="project-tags" aria-label="Technologies used">
+                <span class="tag">Node.js</span><span class="tag">Express.js</span>
+                <span class="tag">MongoDB</span><span class="tag">React.js</span>
+                <span class="tag">Firebase Auth</span><span class="tag">Cloud Run</span>
+              </div>
+              <ul class="project-feats" aria-label="Key features">
+                <li>Conflict-free slot allocation engine preventing double-bookings at scale</li>
+                <li>Role-based REST APIs for patients, doctors, and hospital admins</li>
+                <li>Medical report analysis and intelligent booking recommendations</li>
+                <li>Containerised backend deployed on Google Cloud Run with auto-scaling</li>
+              </ul>
+              <div class="project-metrics" aria-label="Project metrics">
+                <span class="metric-accent">0 booking conflicts</span>
+                <span class="metric-label">· Cloud Run auto-scale</span>
+                <span class="metric-label">· Firebase Auth</span>
+              </div>
+              <details>
+                <summary class="arch-toggle">Architecture Diagram</summary>
+                <div class="arch-diagram" aria-label="System architecture diagram">
+                  <svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-height:160px">
+                    <rect x="10" y="55" width="110" height="50" rx="6" fill="none" stroke="#4fc3f7" stroke-width="1.2" opacity="0.7" />
+                    <text x="65" y="83" font-size="10" fill="#4fc3f7" text-anchor="middle" font-family="monospace">React UI</text>
+                    <rect x="180" y="45" width="140" height="70" rx="6" fill="none" stroke="#00F5D4" stroke-width="1.5" opacity="0.8" />
+                    <text x="250" y="78" font-size="10" fill="#00F5D4" text-anchor="middle" font-family="monospace">Node/Express API</text>
+                    <text x="250" y="95" font-size="9" fill="#00F5D4" opacity="0.7" text-anchor="middle" font-family="monospace">(Cloud Run)</text>
+                    <rect x="370" y="55" width="130" height="50" rx="6" fill="none" stroke="#00F5D4" stroke-width="1" stroke-dasharray="5 3" opacity="0.6" />
+                    <text x="435" y="83" font-size="9" fill="#00F5D4" opacity="0.7" text-anchor="middle" font-family="monospace">Allocation Engine</text>
+                    <rect x="195" y="5" width="110" height="30" rx="5" fill="none" stroke="#4fc3f7" stroke-width="1" opacity="0.6" />
+                    <text x="250" y="25" font-size="9" fill="#4fc3f7" text-anchor="middle" font-family="monospace">Firebase Auth</text>
+                    <line x1="120" y1="80" x2="178" y2="80" stroke="#00F5D4" stroke-width="1.2" opacity="0.6" />
+                    <polygon points="175,76 183,80 175,84" fill="#00F5D4" opacity="0.6" />
+                    <line x1="320" y1="80" x2="368" y2="80" stroke="#00F5D4" stroke-width="1" opacity="0.5" />
+                    <polygon points="365,76 373,80 365,84" fill="#00F5D4" opacity="0.5" />
+                    <line x1="250" y1="45" x2="250" y2="37" stroke="#4fc3f7" stroke-width="1" opacity="0.5" />
+                    <polygon points="246,40 250,32 254,40" fill="#4fc3f7" opacity="0.5" />
+                    <text x="130" y="83" font-size="9" fill="#00F5D4" opacity="0.4" font-family="monospace">→</text>
+                    <text x="10" y="140" font-size="8" fill="#4a5f80" font-family="monospace">React UI → Node/Express API (Cloud Run) → MongoDB · Firebase Auth above API · Allocation Engine (dashed)</text>
+                  </svg>
+                </div>
+              </details>
+              <div class="project-links" style="margin-top:var(--s2)">
+                <span class="project-link" style="cursor:default;opacity:.7">
+                  <i class="fas fa-lock" aria-hidden="true"></i> Private Repo
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PerSplit -->
+          <article class="project-card reveal" aria-labelledby="proj2-title">
             <div class="project-thumb" aria-hidden="true">
               <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
                 <defs>
@@ -1940,7 +2295,7 @@
                 <span class="project-role">Full-Stack Dev</span>
                 <span class="project-type">Group Project</span>
               </div>
-              <h3 class="project-title" id="proj1-title">PerSplit – Expense Splitting App</h3>
+              <h3 class="project-title" id="proj2-title">PerSplit – Expense Splitting App</h3>
               <p class="project-desc">
                 <strong>Problem:</strong> Existing expense apps lack real-time collaboration and UPI-native split
                 methods.
@@ -1958,6 +2313,12 @@
                 <li>Optimised net settlement algorithm to minimise transactions</li>
                 <li>Real-time updates via WebSockets for instant sync</li>
               </ul>
+              <div class="project-metrics" aria-label="Project metrics">
+                <span class="metric-accent">Real-time WebSocket</span>
+                <span class="metric-label">· O(n) settlement algorithm</span>
+                <span class="metric-label">· JWT Auth</span>
+                <span class="metric-label">· UPI QR</span>
+              </div>
               <div class="project-links">
                 <a href="https://drive.google.com/file/d/1Ho_KSsTxvBXb6QINIX-JX4AIlkKEADYe/view?usp=sharing"
                   target="_blank" rel="noopener noreferrer" class="project-link">
@@ -1971,7 +2332,7 @@
           </article>
 
           <!-- WanderLust -->
-          <article class="project-card reveal reveal-delay-1" aria-labelledby="proj2-title">
+          <article class="project-card reveal reveal-delay-1" aria-labelledby="proj3-title">
             <div class="project-thumb" aria-hidden="true">
               <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
                 <defs>
@@ -2006,7 +2367,7 @@
                 <span class="project-role">Full-Stack Dev</span>
                 <span class="project-type">Solo Project</span>
               </div>
-              <h3 class="project-title" id="proj2-title">WanderLust – Travel Listings App</h3>
+              <h3 class="project-title" id="proj3-title">WanderLust – Travel Listings App</h3>
               <p class="project-desc">
                 <strong>Problem:</strong> Travel platforms need intuitive browsing and secure access.
                 <strong>Solution:</strong> Full-stack web app with browseable listings, detailed property views, and
@@ -2023,6 +2384,11 @@
                 <li>Dynamic listing pages with Cloudinary image optimisation</li>
                 <li>RESTful backend supporting full CRUD operations</li>
               </ul>
+              <div class="project-metrics" aria-label="Project metrics">
+                <span class="metric-accent">Live on Render</span>
+                <span class="metric-label">· Cloudinary CDN</span>
+                <span class="metric-label">· OTP email verification</span>
+              </div>
               <div class="project-links">
                 <a href="https://wanderlust-81q2.onrender.com" target="_blank" rel="noopener noreferrer"
                   class="project-link">
@@ -2037,7 +2403,7 @@
           </article>
 
           <!-- AI Grievance -->
-          <article class="project-card reveal reveal-delay-2" aria-labelledby="proj3-title">
+          <article class="project-card reveal reveal-delay-2" aria-labelledby="proj4-title">
             <div class="project-thumb" aria-hidden="true">
               <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
                 <defs>
@@ -2071,7 +2437,7 @@
                 <span class="project-role">Frontend Dev</span>
                 <span class="project-type">Group Project</span>
               </div>
-              <h3 class="project-title" id="proj3-title">AI Grievance Management System</h3>
+              <h3 class="project-title" id="proj4-title">AI Grievance Management System</h3>
               <p class="project-desc">
                 <strong>Problem:</strong> Manual grievance handling is slow and lacks transparency.
                 <strong>Solution:</strong> NLP-driven system for text/voice submissions with multilingual support and
@@ -2088,6 +2454,11 @@
                 <li>Automatic classification and authority routing</li>
                 <li>Real-time complaint status tracking</li>
               </ul>
+              <div class="project-metrics" aria-label="Project metrics">
+                <span class="metric-accent">Multilingual NLP</span>
+                <span class="metric-label">· Voice + Text input</span>
+                <span class="metric-label">· Auto-routing</span>
+              </div>
               <div class="project-links">
                 <a href="https://github.com/suzain9084/AI-Based-Grivance-Management-System" target="_blank"
                   rel="noopener noreferrer" class="project-link">
@@ -2098,7 +2469,7 @@
           </article>
 
           <!-- Fake News Detector -->
-          <article class="project-card reveal reveal-delay-3" aria-labelledby="proj4-title">
+          <article class="project-card reveal reveal-delay-3" aria-labelledby="proj5-title">
             <div class="project-thumb" aria-hidden="true">
               <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
                 <defs>
@@ -2131,7 +2502,7 @@
                 <span class="project-role">ML Engineer</span>
                 <span class="project-type">Solo Project</span>
               </div>
-              <h3 class="project-title" id="proj4-title">Fake News Detector</h3>
+              <h3 class="project-title" id="proj5-title">Fake News Detector</h3>
               <p class="project-desc">
                 <strong>Problem:</strong> Text classification requires careful feature engineering and model selection.
                 <strong>Solution:</strong> TF-IDF (80K vocab) with Gradient Boosting, Random Forest, and Logistic
@@ -2147,6 +2518,12 @@
                 <li>Gradient Boosting classifier achieving 99.48% accuracy</li>
                 <li>Grid search and cross-validation for hyperparameter optimisation</li>
               </ul>
+              <div class="project-metrics" aria-label="Project metrics">
+                <span class="metric-accent">99.48% accuracy</span>
+                <span class="metric-label">· 44K articles</span>
+                <span class="metric-label">· 80K-vocab TF-IDF</span>
+                <span class="metric-label">· sub-second CPU inference</span>
+              </div>
               <div class="project-links">
                 <a href="https://github.com/brijeshkumarmorya/Fake-News-Detection-Tool" target="_blank"
                   rel="noopener noreferrer" class="project-link">
@@ -2306,12 +2683,78 @@
     </section>
 
     <!-- =========================================================
+         ACHIEVEMENTS
+    ========================================================= -->
+    <section id="achievements" aria-labelledby="achievements-heading">
+      <div class="section-wrap">
+        <div class="section-head reveal">
+          <span class="section-num" aria-hidden="true">04.</span>
+          <h2 class="section-title" id="achievements-heading">Achievements</h2>
+          <div class="section-line" aria-hidden="true"></div>
+        </div>
+
+        <!-- Competitive Programming Stats -->
+        <div class="cp-grid">
+          <!-- TODO: Replace placeholder stat values with real data -->
+          <a href="https://leetcode.com/u/brijeshkumarmorya/" target="_blank" rel="noopener noreferrer" class="cp-card reveal">
+            <div class="cp-card-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+            <div class="cp-platform">LeetCode</div>
+            <!-- TODO: Replace with real problem count -->
+            <div class="cp-stat">—</div>
+            <div class="cp-stat-label">Problems Solved</div>
+          </a>
+          <a href="https://codeforces.com/profile/brijeshkumarmorya" target="_blank" rel="noopener noreferrer" class="cp-card reveal reveal-delay-1">
+            <div class="cp-card-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+            <div class="cp-platform">Codeforces</div>
+            <!-- TODO: Replace with real rating -->
+            <div class="cp-stat">—</div>
+            <div class="cp-stat-label">Max Rating</div>
+          </a>
+          <a href="https://www.geeksforgeeks.org/user/brijeshkumarmorya/" target="_blank" rel="noopener noreferrer" class="cp-card reveal reveal-delay-2">
+            <div class="cp-card-icon"><i class="fas fa-leaf" aria-hidden="true"></i></div>
+            <div class="cp-platform">GeeksForGeeks</div>
+            <!-- TODO: Replace with real problem count -->
+            <div class="cp-stat">—</div>
+            <div class="cp-stat-label">Problems Solved</div>
+          </a>
+          <a href="https://github.com/brijeshkumarmorya" target="_blank" rel="noopener noreferrer" class="cp-card reveal reveal-delay-3">
+            <div class="cp-card-icon"><i class="fab fa-github" aria-hidden="true"></i></div>
+            <div class="cp-platform">GitHub</div>
+            <!-- TODO: Replace with real contribution count -->
+            <div class="cp-stat">—</div>
+            <div class="cp-stat-label">Contributions</div>
+          </a>
+        </div>
+
+        <!-- Achievement Items -->
+        <div class="achievement-list">
+          <!-- TODO: Replace with real hackathon name, position, and date -->
+          <div class="achievement-item reveal">
+            <div class="achievement-icon"><i class="fas fa-medal" aria-hidden="true"></i></div>
+            <div>
+              <div class="achievement-title">TODO: Hackathon Name – Position Achieved</div>
+              <div class="achievement-desc">TODO: Brief description of the hackathon, what was built, and the result. Date: TODO</div>
+            </div>
+          </div>
+          <!-- TODO: Replace with real certification name, issuer, and date -->
+          <div class="achievement-item reveal reveal-delay-1">
+            <div class="achievement-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div>
+            <div>
+              <div class="achievement-title">TODO: Certification Name – Issuing Organisation</div>
+              <div class="achievement-desc">TODO: Brief description of the certification and skills validated. Date: TODO</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
          BLOG PREVIEW
     ========================================================= -->
     <section id="blog" aria-labelledby="blog-heading">
       <div class="section-wrap">
         <div class="section-head reveal">
-          <span class="section-num" aria-hidden="true">04.</span>
+          <span class="section-num" aria-hidden="true">05.</span>
           <h2 class="section-title" id="blog-heading">Technical Blog</h2>
           <div class="section-line" aria-hidden="true"></div>
         </div>
@@ -2392,7 +2835,7 @@
     <section class="section-bg-alt" id="education" aria-labelledby="edu-heading">
       <div class="section-wrap">
         <div class="section-head reveal">
-          <span class="section-num" aria-hidden="true">05.</span>
+          <span class="section-num" aria-hidden="true">06.</span>
           <h2 class="section-title" id="edu-heading">Education</h2>
           <div class="section-line" aria-hidden="true"></div>
         </div>
@@ -2430,7 +2873,7 @@
     <section id="contact" aria-labelledby="contact-heading">
       <div class="section-wrap" style="text-align:center">
         <div class="section-head reveal" style="justify-content:center">
-          <span class="section-num" aria-hidden="true">06.</span>
+          <span class="section-num" aria-hidden="true">07.</span>
           <h2 class="section-title" id="contact-heading">Get In Touch</h2>
           <div class="section-line" aria-hidden="true"></div>
         </div>
@@ -2462,6 +2905,29 @@
               class="contact-val">brijeshkumarmorya</a>
           </div>
         </div>
+        <!-- Contact Form (Formspree) -->
+        <!-- TODO: Replace YOUR_FORM_ID with your actual Formspree form ID from https://formspree.io -->
+        <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="contactName">Name</label>
+              <input class="form-input" type="text" id="contactName" name="name" placeholder="Your name" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">Email</label>
+              <input class="form-input" type="email" id="contactEmail" name="email" placeholder="your@email.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contactMessage">Message</label>
+            <textarea class="form-textarea" id="contactMessage" name="message" placeholder="Your message..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" id="formSubmitBtn">
+            <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message
+          </button>
+          <p class="form-success" id="formSuccess" role="status">✓ Message sent successfully! I'll get back to you soon.</p>
+          <p class="form-error" id="formError" role="alert">✗ Something went wrong. Please try again or email directly.</p>
+        </form>
         <div class="social-row reveal">
           <a href="https://github.com/brijeshkumarmorya" target="_blank" rel="noopener noreferrer" class="social-btn"
             aria-label="GitHub profile">
@@ -2489,7 +2955,7 @@
         <a href="blog/">Blog</a>
         <a href="#contact">Contact</a>
       </nav>
-      <p>Designed &amp; built by <span>Brijesh Kumar Morya</span> &copy; 2025 · Delhi, India</p>
+      <p>Designed &amp; built by <span>Brijesh Kumar Morya</span> &copy; <span id="footer-year"></span> · Delhi, India</p>
       <p>B.Tech CSE · University of Delhi · <a href="mailto:brijeshkm956@gmail.com"
           style="color:var(--accent);text-decoration:none">brijeshkm956@gmail.com</a></p>
     </div>
@@ -2591,6 +3057,56 @@
         if (typeof gtag !== 'undefined') gtag('event', 'resume_download', { event_category: 'engagement', event_label: 'Resume PDF' });
       });
     });
+
+    /* DYNAMIC FOOTER YEAR */
+    (function() {
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    })();
+
+    /* ARCHITECTURE DIAGRAM TOGGLE (aria-expanded) */
+    document.querySelectorAll('details').forEach(details => {
+      const summary = details.querySelector('summary');
+      if (!summary) return;
+      details.addEventListener('toggle', () => {
+        summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+      });
+      summary.setAttribute('aria-expanded', 'false');
+    });
+
+    /* CONTACT FORM (Formspree async) */
+    (function() {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+      const btn = document.getElementById('formSubmitBtn');
+      const successEl = document.getElementById('formSuccess');
+      const errorEl = document.getElementById('formError');
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        successEl.style.display = 'none';
+        errorEl.style.display = 'none';
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            successEl.style.display = 'block';
+            form.reset();
+          } else {
+            errorEl.style.display = 'block';
+          }
+        } catch (_) {
+          errorEl.style.display = 'block';
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message';
+        }
+      });
+    })();
   </script>
 </body>
 
